@@ -5,7 +5,23 @@ const app=express();
 
 app.set('view engine','ejs');
 app.set('views',path.join(__dirname,'views'));
+
+//Middleware
 app.use(express.urlencoded());
+
+//Understanding the functioning of middleware
+//middleware1
+app.use(function(req,res,next){
+    req.myName="Arpan";
+    console.log("Middleware 1 called");
+    next();
+});
+//middleware2
+app.use(function(req,res,next){
+    console.log("Middleware 2 called");
+    console.log("My name called from MW2 : ",req.myName);
+    next();
+});
 
 var contactList=[
     {

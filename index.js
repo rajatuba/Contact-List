@@ -15,43 +15,21 @@ app.use(express.urlencoded());
 //adding static files
 app.use(express.static('assets'))
 
-/*
-//Understanding the functioning of middleware
-//middleware1
-app.use(function(req,res,next){
-    req.myName="Arpan";
-    console.log("Middleware 1 called");
-    next();
-});
-//middleware2
-app.use(function(req,res,next){
-    console.log("Middleware 2 called");
-    console.log("My name called from MW2 : ",req.myName);
-    next();
-});
-*/
-
-var contactList=[
-    {
-        name : "Arpan",
-        phone : "111111111"
-    },
-    {
-        name : "Tony",
-        phone : "0132344654"
-    },
-    {
-        name : "Rajat",
-        phone : "78746746"
-    }
-]
 
 //Home page of website
 app.get('/',function(req,res){
     //console.log(__dirname);
-    res.render('home',{
-        title:"My Contact List",
-        contact_list:contactList
+
+    //Fetching Data from DB
+    Contact.find({},function(err,contacts){
+        if(err){
+            console.log('Error in fetching contacts from database');
+            return;
+        }
+        return res.render('home',{
+            title:"My Contact List",
+            contact_list:contacts
+        });
     });
 });
 
@@ -69,19 +47,23 @@ app.post('/create-contact',function(req,res){
         console.log('****',newContact);
         return res.redirect('back');
     });
-    
 });
 
 //Creating for deleting contact from array
 app.get('/delete-contact/',function(req,res){
     //console.log(req.query);
-    let phone=req.query.phone;
-    let contactIndex=contactList.findIndex(contact=> contact.phone==phone);
-    if(contactIndex!=-1){
-        contactList.splice(contactIndex,1);
-    }
 
-    return res.redirect('back');
+    //get id from query in ul
+    let id=req.query.id;
+
+    //find the contact in db using id and delete
+    Contact.findByIdAndDelete(id,function(err){
+        if(err){
+            console.log('Error in deleting an object from db');
+            return;
+        }
+        return res.redirect('back');
+    });
 });
 
 app.listen(port,function(err){

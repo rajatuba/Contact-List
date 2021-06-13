@@ -9,6 +9,10 @@ app.set('views',path.join(__dirname,'views'));
 //Middleware
 app.use(express.urlencoded());
 
+//adding static files
+app.use(express.static('assets'))
+
+/*
 //Understanding the functioning of middleware
 //middleware1
 app.use(function(req,res,next){
@@ -22,6 +26,7 @@ app.use(function(req,res,next){
     console.log("My name called from MW2 : ",req.myName);
     next();
 });
+*/
 
 var contactList=[
     {

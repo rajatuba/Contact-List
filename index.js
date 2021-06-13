@@ -68,6 +68,18 @@ app.post('/create-contact',function(req,res){
     return res.redirect('back');
 });
 
+//Creating for deleting contact from array
+app.get('/delete-contact/',function(req,res){
+    //console.log(req.query);
+    let phone=req.query.phone;
+    let contactIndex=contactList.findIndex(contact=> contact.phone==phone);
+    if(contactIndex!=-1){
+        contactList.splice(contactIndex,1);
+    }
+
+    return res.redirect('back');
+});
+
 app.listen(port,function(err){
     if(err){
         console.log('Error in running the server',err);

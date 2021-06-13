@@ -3,6 +3,8 @@
         <title>
             <%= title %>
         </title>
+
+        <script src="https://kit.fontawesome.com/30877f989b.js" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="/css/home.css">
     </head>
     <body>
@@ -10,10 +12,18 @@
         <div>
             <ul>
                 <% for(let i of contact_list){ %>
-                    <li>
-                        <p><%= i.name %></p>
-                        <p><%= i.phone %></p>
-                    </li>
+                    <div class="contact">
+                        <li>
+                            <p><i class="fas fa-user"></i> <%= i.name %></p>
+                            <p><i class="fas fa-phone"></i><%= i.phone %></p>
+                        </li>
+                    </div>
+                    <!-- Creating delete button using query to send data -->
+                    <div class="delete-button">
+                        <a href="/delete-contact/?phone=<%=i.phone%>">
+                            delete
+                        </a>
+                    </div>
                 <% } %>
             </ul>
         </div>
@@ -24,6 +34,7 @@
             <button type="submit"> Add Contact </button>
         </form>
 
+        
         <script type="text/javascript" src="/js/home.js"></script>
     </body>
 </html>

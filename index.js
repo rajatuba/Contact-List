@@ -3,7 +3,7 @@ const path = require('path');
 const port=8000;
 //database connecting
 const db=require('./config/mongoose');
-const contact=require('./models/contact');
+const Contact=require('./models/contact');
 const app=express();
 
 app.set('view engine','ejs');
@@ -55,20 +55,21 @@ app.get('/',function(req,res){
     });
 });
 
-//Adding Contacts to array from form
+//Adding Contacts to DB
 app.post('/create-contact',function(req,res){
-    //console.log(req.body.name);
-    /*
-    contactList.push({
+    
+    Contact.create({
         name:req.body.name,
         phone:req.body.phone
-    })
-    */
-
-    contactList.push(req.body);
-
-    //return re.redirect('/');
-    return res.redirect('back');
+    },function(err,newContact){
+        if(err){
+            console.log('Error in Creating Contact');
+            return;
+        }
+        console.log('****',newContact);
+        return res.redirect('back');
+    });
+    
 });
 
 //Creating for deleting contact from array

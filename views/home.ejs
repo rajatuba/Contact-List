@@ -9,30 +9,33 @@
     </head>
     <body>
         <h1>Contact List</h1>
-        <div>
+        <div class="contact-list">
             <ul>
                 <% for(let i of contact_list){ %>
-                    <div class="contact">
-                        <li>
-                            <p><i class="fas fa-user"></i> <%= i.name %></p>
-                            <p><i class="fas fa-phone"></i><%= i.phone %></p>
-                        </li>
-                    </div>
-                    <!-- Creating delete button using query to send data -->
-                    <div class="delete-button">
-                        <a href="/delete-contact/?id=<%=i._id%>">
-                            delete
-                        </a>
+                    <div class="contact-list-item">
+                        <div class="contact">
+                            <li>
+                                <p><i class="fas fa-user"></i>&ensp;<%= i.name %></p>
+                                <p><i class="fas fa-phone"></i>&ensp;<%= i.phone %></p>
+                            </li>
+                        </div>
+                            <!-- Creating delete button using query to send data -->
+                        <div class="delete-button">
+                            <a href="/delete-contact/?id=<%=i._id%>">
+                                <i class="fas fa-trash"></i>
+                            </a>
+                        </div>
                     </div>
                 <% } %>
             </ul>
-        </div>
+        
 
-        <form action="/create-contact" method="POST">
-            <input type="text" name="name" placeholder="Enter Name" required>
-            <input type="number" name="phone" placeholder="Enter Phone" required>
-            <button type="submit"> Add Contact </button>
-        </form>
+            <form action="/create-contact" method="POST" class="contact-form">
+                <input type="text" name="name" placeholder="Enter Name" required>
+                <input type="number" name="phone" placeholder="Enter Phone" required>
+                <button type="submit"> Add Contact </button>
+            </form>
+        </div>
 
         
         <script type="text/javascript" src="/js/home.js"></script>

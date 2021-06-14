@@ -54,6 +54,7 @@ app.get('/delete-contact/',function(req,res){
     //console.log(req.query);
 
     //get id from query in ul
+    
     let id=req.query.id;
 
     //find the contact in db using id and delete
